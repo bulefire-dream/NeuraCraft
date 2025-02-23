@@ -1,0 +1,24 @@
+POST https://api-yinying-ng.wingmark.cn/v1/chatWithCyberFurry
+Content-Type: application/json
+Authorization: Bearer yinying-2L8NvWk82J6urz85dree23e6aesOCfOnQUo6M7ojggty
+
+//{
+//  "appId":"testdebug",
+//  "chatId":"appId-用户标识符-随机字符",
+//  "model":"yinyingllm-v2",
+//  "variables": {
+//    "nickName":"昵称",
+//    "furryCharacter":"设定",
+//    "promptPatch":"可以在这里对银影进行提示，例如自定义知识库、自定义对话规则和内容"
+//  },
+//  "message":"对话信息"
+//  "multimodal":"图片 url"
+//}
+
+{
+  "appId":"lanhuobot",
+  "chatId":"lanhuobot-user1-abcd",
+  "model":"yinyingllm-latest",
+  "systemPrompt":"你的名字叫银影，是翎迹网络开发的仿生灰狼",
+  "message":"酥服awa"
+}

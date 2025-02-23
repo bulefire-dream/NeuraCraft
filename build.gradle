@@ -1,0 +1,281 @@
+buildscript {
+    repositories {
+        // These repositories are only for Gradle plugins, put any other repositories in the repository block further below
+        // 这些仓库仅用于Gradle插件，将任何其他仓库放在下面的repository块中
+        maven { url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'eclipse'
+    id 'idea'
+    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
+}
+
+apply plugin: 'org.spongepowered.mixin'
+
+group = mod_group_id
+version = mod_version
+
+base {
+    archivesName = mod_id
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
+
+minecraft {
+    // The mappings can be changed at any time and must be in the following format.
+    // 映射可以随时更改，并且必须采用以下格式。
+    // Channel:   Version:
+    // Channel:   版本:
+    // official   MCVersion             Official field/method names from Mojang mapping files
+    // official   MCVersion             Mojang映射文件中的官方字段/方法名称
+    // parchment  YYYY.MM.DD-MCVersion  Open community-sourced parameter names and javadocs layered on top of official
+    // parchment  YYYY.MM.DD-MCVersion  基于官方的开源社区提供的参数名称和javadoc
+    //
+    // You must be aware of the Mojang license when using the 'official' or 'parchment' mappings.
+    // 使用'official'或'parchment'映射时，您必须了解Mojang许可证。
+    // See more information here: https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
+    // 有关更多信息，请参阅此处：https://github.com/MinecraftForge/MCPConfig/blob/master/Mojang.md
+    //
+    // Parchment is an unofficial project maintained by ParchmentMC, separate from MinecraftForge
+    // Parchment是由ParchmentMC维护的非官方项目，独立于MinecraftForge
+    // Additional setup is needed to use their mappings: https://parchmentmc.org/docs/getting-started
+    // 使用他们的映射需要额外的设置：https://parchmentmc.org/docs/getting-started
+    //
+    // Use non-default mappings at your own risk. They may not always work.
+    // 使用非默认映射风险自负。它们可能无法正常工作。
+    // Simply re-run your setup task after changing the mappings to update your workspace.
+    // 更改映射后只需重新运行setup任务即可更新工作区。
+    mappings channel: mapping_channel, version: mapping_version
+
+    // When true, this property will have all Eclipse/IntelliJ IDEA run configurations run the "prepareX" task for the given run configuration before launching the game.
+    // 当为true时，此属性将使所有Eclipse/IntelliJ IDEA运行配置在启动游戏之前运行给定运行配置的"prepareX"任务。
+    // In most cases, it is not necessary to enable.
+    // 在大多数情况下，不需要启用。
+    // enableEclipsePrepareRuns = true
+    // enableIdeaPrepareRuns = true
+
+    // This property allows configuring Gradle's ProcessResources task(s) to run on IDE output locations before launching the game.
+    // 此属性允许配置Gradle的ProcessResources任务在启动游戏之前在IDE输出位置运行。
+    // It is REQUIRED to be set to true for this template to function.
+    // 对于此模板要正常工作，必须将其设置为true。
+    // See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
+    // 请参阅：https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
+    copyIdeResources = true
+
+    // When true, this property will add the folder name of all declared run configurations to generated IDE run configurations.
+    // 当为true时，此属性将向生成的IDE运行配置添加所有声明的运行配置的文件夹名称。
+    // The folder name can be set on a run configuration using the "folderName" property.
+    // 可以使用"folderName"属性在运行配置上设置文件夹名称。
+    // By default, the folder name of a run configuration is the name of the Gradle project containing it.
+    // 默认情况下，运行配置的文件夹名称是包含它的Gradle项目的名称。
+    // generateRunFolders = true
+
+    // This property enables access transformers for use in development.
+    // 此属性启用访问转换器以在开发中使用。
+    // They will be applied to the Minecraft artifact.
+    // 它们将应用于Minecraft工件。
+    // The access transformer file can be anywhere in the project.
+    // 访问转换器文件可以位于项目的任何位置。
+    // However, it must be at "META-INF/accesstransformer.cfg" in the final mod jar to be loaded by Forge.
+    // 但是，它必须位于最终mod jar的"META-INF/accesstransformer.cfg"中才能被Forge加载。
+    // This default location is a best practice to automatically put the file in the right place in the final jar.
+    // 此默认位置是最佳实践，可自动将文件放在最终jar的正确位置。
+    // See https://docs.minecraftforge.net/en/latest/advanced/accesstransformers/ for more information.
+    // 有关更多信息，请参阅：https://docs.minecraftforge.net/en/latest/advanced/accesstransformers/
+    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    // Default run configurations.
+    // 默认运行配置。
+    // These can be tweaked, removed, or duplicated as needed.
+    // 根据需要可以调整、删除或复制。
+    runs {
+        // applies to all the run configs below
+        // 适用于下面的所有运行配置
+        configureEach {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            // 推荐的用户开发环境日志数据
+            // The markers can be added/remove as needed separated by commas.
+            // 标记可以根据需要添加/删除，用逗号分隔。
+            // "SCAN": For mods scan.
+            // "SCAN": 用于模组扫描。
+            // "REGISTRIES": For firing of registry events.
+            // "REGISTRIES": 用于触发注册表事件。
+            // "REGISTRYDUMP": For getting the contents of all registries.
+            // "REGISTRYDUMP": 用于获取所有注册表的内容。
+            property 'forge.logging.markers', 'REGISTRIES'
+
+            // Recommended logging level for the console
+            // 推荐的控制台日志级别
+            // You can set various levels here.
+            // 您可以在此处设置各种级别。
+            // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            // 请参阅：https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+            property 'forge.logging.console.level', 'debug'
+
+            mods {
+                "${mod_id}" {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        client {
+            // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+            // 以逗号分隔的命名空间列表，用于加载游戏测试。空=所有命名空间。
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        server {
+            property 'forge.enabledGameTestNamespaces', mod_id
+            args '--nogui'
+        }
+
+        // This run config launches GameTestServer and runs all registered gametests, then exits.
+        // 此运行配置启动GameTestServer并运行所有已注册的游戏测试，然后退出。
+        // By default, the server will crash when no gametests are provided.
+        // 默认情况下，如果没有提供游戏测试，服务器将崩溃。
+        // The gametest system is also enabled by default for other run configs under the /test command.
+        // 游戏测试系统也默认在其他运行配置下通过/test命令启用。
+        gameTestServer {
+            property 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        data {
+            // example of overriding the workingDirectory set in configureEach above
+            // 覆盖上面configureEach中设置的workingDirectory的示例
+            workingDirectory project.file('run-data')
+
+            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+            // 指定用于数据生成的modid，输出结果资源的位置以及查找现有资源的位置。
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+        }
+    }
+}
+
+mixin {
+    add sourceSets.main, "${mod_id}.refmap.json"
+
+    config "${mod_id}.mixins.json"
+}
+
+// Include resources generated by data generators.
+// 包含数据生成器生成的资源。
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    // Put repositories for dependencies here
+    // 将依赖项的仓库放在这里
+    // ForgeGradle automatically adds the Forge maven and Maven Central for you
+    // ForgeGradle会自动为您添加Forge maven和Maven Central
+
+    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so.
+    // 如果您在./libs中有mod jar依赖项，可以像这样声明它们为仓库。
+    // See https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:flat_dir_resolver
+    // 请参阅：https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:flat_dir_resolver
+    // flatDir {
+    //     dir 'libs'
+    // }
+}
+
+dependencies {
+    // Specify the version of Minecraft to use.
+    // 指定要使用的Minecraft版本。
+    // Any artifact can be supplied so long as it has a "userdev" classifier artifact and is a compatible patcher artifact.
+    // 只要它具有"userdev"分类器工件并且是兼容的修补程序工件，就可以提供任何工件。
+    // The "userdev" classifier will be requested and setup by ForgeGradle.
+    // "userdev"分类器将由ForgeGradle请求并设置。
+    // If the group id is "net.minecraft" and the artifact id is one of ["client", "server", "joined"],
+    // 如果组ID是"net.minecraft"，而工件ID是["client", "server", "joined"]中的一个，
+    // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
+    // 则会进行特殊处理以允许在不使用外部仓库的情况下设置一个原版依赖项。
+    // The "userdev" classifier will be requested and setup by ForgeGradle.
+    // "userdev"分类器将由ForgeGradle请求并设置。
+    // If the group id is "net.minecraft" and the artifact id is one of ["client", "server", "joined"],
+    // 如果组ID是"net.minecraft"，而工件ID是["client", "server", "joined"]中的一个，
+    // then special handling is done to allow a setup of a vanilla dependency without the use of an external repository.
+    // 则会进行特殊处理以允许在不使用外部仓库的情况下设置一个原版依赖项。
+    // See https://files.minecraftforge.net/net/minecraftforge/forge/ for a list of versions.
+    // 请参阅：https://files.minecraftforge.net/net/minecraftforge/forge/ 以获取版本列表。
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    // Example mod dependency with JEI - using fg.deobf() ensures the dependency is remapped to your development mappings
+    // 使用JEI的模组依赖项示例 - 使用fg.deobf()可确保依赖项被重新映射到您的开发映射
+    // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
+    // JEI API用于编译时使用，而完整的JEI工件在运行时使用
+    // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-common-api:${jei_version}")
+    // compileOnly fg.deobf("mezz.jei:jei-${mc_version}-forge-api:${jei_version}")
+    // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}-forge:${jei_version}")
+
+    // Example mod dependency using a mod jar from ./libs with a flat dir repository
+    // 使用来自./libs的mod jar的模组依赖项示例，使用flat dir仓库
+    // This maps to ./libs/coolmod-${mc_version}-${coolmod_version}.jar
+    // 这映射到./libs/coolmod-${mc_version}-${coolmod_version}.jar
+    // The group id is ignored when searching -- in this case, it is "blank"
+    // 在搜索时忽略组ID -- 在这种情况下，它是"blank"
+    // implementation fg.deobf("blank:coolmod-${mc_version}:${coolmod_version}")
+
+    // For more info:
+    // 更多信息：
+    // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
+    // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    implementation 'com.google.code.gson:gson:2.8.9'
+}
+
+// This block of code expands all declared replace properties in the specified resource targets.
+// 此代码块将扩展指定资源目标中声明的所有替换属性。
+// A missing property will result in an error. Properties are expanded using ${} Groovy notation.
+// 缺少的属性将导致错误。属性使用${} Groovy表示法进行扩展。
+// When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
+// 当"copyIdeResources"启用时，这也会在IDE环境中启动游戏之前运行。
+// See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
+// 请参阅：https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
+tasks.named('processResources', ProcessResources).configure {
+    var replaceProperties = [minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
+                             forge_version       : forge_version, forge_version_range: forge_version_range,
+                             loader_version_range: loader_version_range,
+                             mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+                             mod_authors         : mod_authors, mod_description: mod_description,]
+
+    inputs.properties replaceProperties
+
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+        expand replaceProperties + [project: project]
+    }
+}
+
+// Example for how to get properties into the manifest for reading at runtime.
+// 示例说明如何将属性放入清单文件以便在运行时读取。
+tasks.named('jar', Jar).configure {
+    manifest {
+        attributes(["Specification-Title"     : mod_id,
+                    "Specification-Vendor"    : mod_authors,
+                    "Specification-Version"   : "1", // We are version 1 of ourselves
+                    "Specification-Version"   : "1", // 我们是自己的第1版
+                    "Implementation-Title"    : project.name,
+                    "Implementation-Version"  : project.jar.archiveVersion,
+                    "Implementation-Vendor"   : mod_authors,
+                    "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")])
+    }
+
+    // This is the preferred method to reobfuscate your jar file
+    // 这是重新混淆jar文件的首选方法
+    finalizedBy 'reobfJar'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    options.encoding = 'UTF-8' // 使用UTF-8字符集进行Java编译
+}

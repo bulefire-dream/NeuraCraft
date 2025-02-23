@@ -1,0 +1,17 @@
+
+["银影AI 设置"]
+	#API URL
+	apiUrl = "https://api-yinying-ng.wingmark.cn/v1"
+	#API 接口
+	apiInterface = "/chatWithCyberFurry"
+	#Token
+	token = "yinying-2L8NvWk82J6urz85dree23e6aesOCfOnQUo6M7ojggty"
+	#AppID
+	appid = "lanhuobot"
+	#System Prompt
+	systemPrompt = "你的名字叫银影，是翎迹网络开发的仿生灰狼"
+	#显示名称
+	showName = "银影"
+	#Model
+	model = "yinyingllm-latest"
+
