@@ -5,7 +5,7 @@ Time: 2025-02-23 13:53:34
 Description: keyPressed event handler
 
 java.lang.RuntimeException: com.google.gson.JsonSyntaxException: java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $
-	at com.bulefire.neuracraft.ai.yy.Client.sendMessage(Client.java:53) ~[%23196!/:?] {re:classloading}
+	at com.bulefire.neuracraft.ai.yy.ChatRoom.sendMessage(Client.java:53) ~[%23196!/:?] {re:classloading}
 	at com.bulefire.neuracraft.ai.yy.YY.chat(YY.java:42) ~[%23196!/:?] {re:classloading}
 	at com.bulefire.neuracraft.ai.yy.YY.onChat(YY.java:21) ~[%23196!/:?] {re:classloading}
 	at com.bulefire.neuracraft.event.ChatEventListener.onChat(ChatEventListener.java:38) ~[%23196!/:?] {re:classloading}
@@ -52,8 +52,8 @@ Caused by: com.google.gson.JsonSyntaxException: java.lang.IllegalStateException:
 	at com.google.gson.Gson.fromJson(Gson.java:1124) ~[gson-2.10.jar%23130!/:?] {}
 	at com.google.gson.Gson.fromJson(Gson.java:1034) ~[gson-2.10.jar%23130!/:?] {}
 	at com.google.gson.Gson.fromJson(Gson.java:969) ~[gson-2.10.jar%23130!/:?] {}
-	at com.bulefire.neuracraft.ai.yy.Client.getReply(Client.java:74) ~[%23196!/:?] {re:classloading}
-	at com.bulefire.neuracraft.ai.yy.Client.sendMessage(Client.java:51) ~[%23196!/:?] {re:classloading}
+	at com.bulefire.neuracraft.ai.yy.ChatRoom.getReply(Client.java:74) ~[%23196!/:?] {re:classloading}
+	at com.bulefire.neuracraft.ai.yy.ChatRoom.sendMessage(Client.java:51) ~[%23196!/:?] {re:classloading}
 	... 40 more
 Caused by: java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $
 	at com.google.gson.stream.JsonReader.beginObject(JsonReader.java:393) ~[gson-2.10.jar%23130!/:?] {}
@@ -62,8 +62,8 @@ Caused by: java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING
 	at com.google.gson.Gson.fromJson(Gson.java:1124) ~[gson-2.10.jar%23130!/:?] {}
 	at com.google.gson.Gson.fromJson(Gson.java:1034) ~[gson-2.10.jar%23130!/:?] {}
 	at com.google.gson.Gson.fromJson(Gson.java:969) ~[gson-2.10.jar%23130!/:?] {}
-	at com.bulefire.neuracraft.ai.yy.Client.getReply(Client.java:74) ~[%23196!/:?] {re:classloading}
-	at com.bulefire.neuracraft.ai.yy.Client.sendMessage(Client.java:51) ~[%23196!/:?] {re:classloading}
+	at com.bulefire.neuracraft.ai.yy.ChatRoom.getReply(Client.java:74) ~[%23196!/:?] {re:classloading}
+	at com.bulefire.neuracraft.ai.yy.ChatRoom.sendMessage(Client.java:51) ~[%23196!/:?] {re:classloading}
 	... 40 more
 
 
@@ -74,9 +74,9 @@ A detailed walkthrough of the error, its code path and all known details is as f
 Thread: Render thread
 Suspected Mod: 
 	NeuraCraft (neuracraft), Version: 0.1-SNAPSHOT
-		at TRANSFORMER/neuracraft@0.1-SNAPSHOT/com.bulefire.neuracraft.ai.yy.Client.sendMessage(Client.java:53)
+		at TRANSFORMER/neuracraft@0.1-SNAPSHOT/com.bulefire.neuracraft.ai.yy.ChatRoom.sendMessage(Client.java:53)
 Stacktrace:
-	at com.bulefire.neuracraft.ai.yy.Client.sendMessage(Client.java:53) ~[%23196!/:?] {re:classloading}
+	at com.bulefire.neuracraft.ai.yy.ChatRoom.sendMessage(Client.java:53) ~[%23196!/:?] {re:classloading}
 	at com.bulefire.neuracraft.ai.yy.YY.chat(YY.java:42) ~[%23196!/:?] {re:classloading}
 	at com.bulefire.neuracraft.ai.yy.YY.onChat(YY.java:21) ~[%23196!/:?] {re:classloading}
 	at com.bulefire.neuracraft.event.ChatEventListener.onChat(ChatEventListener.java:38) ~[%23196!/:?] {re:classloading}

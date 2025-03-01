@@ -7,13 +7,13 @@ public class ClientManger {
     /**
      * 客户端表
      */
-    private final Map<String,Client> clients;
+    private final Map<String, ChatRoom> clients;
 
     ClientManger(){
         // 初始化客户端表
         clients = new HashMap<>();
         // 初始化一个公共聊天室
-        clients.put("public",new Client("public"));
+        clients.put("public",new ChatRoom("public"));
     }
 
     /**
@@ -21,7 +21,7 @@ public class ClientManger {
      * @param chatName 聊天室名称
      * @return 聊天室实例
      */
-    public Client getClient(String chatName){
+    public ChatRoom getClient(String chatName){
         if (!clients.containsKey(chatName)){
             createClient(chatName);
         }
@@ -35,7 +35,7 @@ public class ClientManger {
             return false;
         }
         // 创建一个客户端
-        clients.put(chatName,new Client(chatName));
+        clients.put(chatName,new ChatRoom(chatName));
         // 返回true
         return true;
     }

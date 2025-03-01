@@ -4,7 +4,7 @@
 Time: 2025-02-23 13:09:36
 Description: keyPressed event handler
 
-java.lang.NullPointerException: Cannot invoke "com.bulefire.neuracraft.ai.yy.Client.sendMessage(String)" because "c" is null
+java.lang.NullPointerException: Cannot invoke "com.bulefire.neuracraft.ai.yy.ChatRoom.sendMessage(String)" because "c" is null
 	at com.bulefire.neuracraft.ai.yy.YY.chat(YY.java:35) ~[%23196!/:?] {re:classloading}
 	at com.bulefire.neuracraft.ai.yy.YY.onChat(YY.java:19) ~[%23196!/:?] {re:classloading}
 	at com.bulefire.neuracraft.event.ChatEventListener.onChat(ChatEventListener.java:37) ~[%23196!/:?] {re:classloading}

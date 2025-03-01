@@ -17,8 +17,8 @@ Authorization: Bearer yinying-2L8NvWk82J6urz85dree23e6aesOCfOnQUo6M7ojggty
 
 {
   "appId":"lanhuobot",
-  "chatId":"lanhuobot-user1-abcd",
+  "chatId":"lanhuobot-test-1",
   "model":"yinyingllm-latest",
   "systemPrompt":"你的名字叫银影，是翎迹网络开发的仿生灰狼",
-  "message":"酥服awa"
+  "message":"qwq"
 }

@@ -1,11 +1,13 @@
 package com.bulefire.neuracraft.init;
 
 import com.bulefire.neuracraft.NeuraCraft;
+import com.bulefire.neuracraft.ai.yy.NetWork;
 import com.bulefire.neuracraft.config.Config;
 import com.bulefire.neuracraft.config.yy.BaseInformation;
 import com.bulefire.neuracraft.register.RegisterBlock;
 import com.bulefire.neuracraft.register.RegisterCreativeModeTab;
 import com.bulefire.neuracraft.register.RegisterItem;
+import com.bulefire.neuracraft.util.SendMessageToChatBar;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -37,11 +39,17 @@ public class Init {
 
         // 注册我们自己以接收服务器和其他游戏事件
         MinecraftForge.EVENT_BUS.register(n);
+        // MinecraftForge.EVENT_BUS.register(SendMessageToChatBar.class);
 
         // 将物品注册到创造模式标签
         // modEventBus.addListener(this::addCreative);
         registerConfig();
+        registerNetWork();
         }
+
+    private static void registerNetWork(){
+        NetWork.registerMessage();
+    }
 
     private static void registerConfig(){
         // 注册我们的模组的ForgeConfigSpec，以便Forge可以为我们创建和加载配置文件
