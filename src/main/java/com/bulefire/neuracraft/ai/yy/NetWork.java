@@ -19,7 +19,7 @@ public class NetWork {
 
     private static final String VERSION = "1.0";
     private static final SimpleChannel CHANNEL = NetworkRegistry.ChannelBuilder
-            .named(ResourceLocation.fromNamespaceAndPath(MODID, "yy-c"))
+            .named(new ResourceLocation(MODID, "yy-c"))
             .clientAcceptedVersions(VERSION::equals)
             .serverAcceptedVersions(VERSION::equals)
             .networkProtocolVersion(() -> VERSION)
